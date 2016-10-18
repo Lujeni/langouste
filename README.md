@@ -6,7 +6,7 @@ Is inspired by the official slack command.
 
 Just type `/hangout` in any channel or direct message to create unique Hangout link.
 
-![langouste screenshot](https://github.com/lujeni/langouste/raw/master/langouste.png)
+![langouste screen](https://github.com/Lujeni/langouste/blob/master/langouste.png)
 
 # Usage
 ## Requirements
