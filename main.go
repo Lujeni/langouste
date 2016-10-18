@@ -1,3 +1,7 @@
+// TODO: webserver compliance (nginx/apache)
+// TODO: oauthStateString must be regenerate for each request
+// TODO: the Username/IconURL seems broken
+
 package main
 
 import (
@@ -35,7 +39,6 @@ type mattermostRequest struct {
 	UserName    string `json:"user_name"`
 }
 
-// TODO: the Username/IconURL seems broken
 type mattermostResponse struct {
 	Username     string `json:"username"`
 	IconURL      string `json:"icon_url"`
@@ -107,7 +110,7 @@ func tokenCacheFile() (string, error) {
 	tokenCacheDir := filepath.Join(usr.HomeDir, ".credentials")
 	os.MkdirAll(tokenCacheDir, 0700)
 	return filepath.Join(tokenCacheDir,
-		url.QueryEscape("calendar-go-quickstart.json")), err
+		url.QueryEscape("calendar-langouste.json")), err
 }
 
 // tokenFromFile retrieves a Token from a given file path.
@@ -167,6 +170,7 @@ func insertCalendarEvent(r *http.Request) (calendar.Event, error) {
 	return *event, err
 }
 
+// loginHandler create a login link and redirects the user to it.
 func loginHandler(w http.ResponseWriter, r *http.Request) {
 	var scheme string
 	scheme = "http"
@@ -183,6 +187,8 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
 }
 
+// callbackHandler verify the oauth part
+// We create the credential cache file also.
 func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	state := r.FormValue("state")
 	if state != oauthStateString {
@@ -206,6 +212,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Sucessfully save credential file to: %s\n", cacheFile)
 }
 
+// eventHandler handle the mattermost slash command and
+// create a new calendar event.
 func eventHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	var response mattermostResponse
@@ -231,7 +239,7 @@ func eventHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response.Text = event.HangoutLink
+	response.Text = fmt.Sprintf("Hangout link by %v\n\n --- \n\n %v", r.FormValue("user_name"), event.HangoutLink)
 	data, _ := json.Marshal(response)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(data)
