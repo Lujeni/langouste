@@ -23,17 +23,19 @@ export ClientID="4259064-r75o49rnct7mvuf08.apps.googleusercontent.com" # from th
 ```
 
 ## Setup
-### Launch the web server 
+### Launch the web server
 ```bash
+# GET -> / generetate the temporary google token (oauth).
+# POST -> / handle mattemost event from the slash command.
 ./langouste
 ```
 
 ### Generate the token
 ```bash
-visit the http://localhost:8000/
+go to http://localhost:8000/
 ```
 
 ### Mattermost
-* Create a `slash` command
-** url: http://localhost:8000/
-** method: POST
+* Create the [Slash command](https://docs.mattermost.com/developer/slash-commands.html#set-up-a-custom-command)
+1. url: http://localhost:8000
+2. request method: POST
