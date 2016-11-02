@@ -16,8 +16,11 @@ Just type `/hangout` in any channel or direct message to create unique Hangout l
 
 ## Environnement
 ```bash
+# the default listen port is 8000
+# you can override it through the PORT variable
+export PORT=8888
+
 # export the necessary variables.
-export langoustePort=8000
 export ClientSecret="YksceBugZGagGi-18Nn"   # from the google quick start
 export ClientID="4259064-r75o49rnct7mvuf08.apps.googleusercontent.com" # from the google quick start
 ```

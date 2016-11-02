@@ -18,13 +18,8 @@ func randomStr() string {
 
 // sanityCheck check all mandatory variables.
 func sanityCheck() {
-	langoustePort := os.Getenv("langoustePort")
 	ClientID := os.Getenv("ClientID")
 	ClientSecret := os.Getenv("ClientSecret")
-
-	if langoustePort == "" {
-		log.Fatal("You must specify a langoustePort.")
-	}
 
 	if ClientID == "" {
 		log.Fatal("You must specify a google ClientID.")

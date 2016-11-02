@@ -93,7 +93,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		scheme = "https"
 	}
 
-	env_host := os.Getenv("langousteHost")
+	env_host := os.Getenv("PORT")
 	googleOauthConfig.RedirectURL = fmt.Sprintf("%v://%v/callback", scheme, env_host)
 	if env_host == "" {
 		googleOauthConfig.RedirectURL = fmt.Sprintf("%v://%v/callback", scheme, r.Host)
@@ -164,16 +164,19 @@ func eventHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	sanityCheck()
 
-	port := os.Getenv("langoustePort")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8000"
+	}
 	r := mux.NewRouter()
 	r.HandleFunc("/", loginHandler).Methods("GET")
 	r.HandleFunc("/callback", callbackHandler).Methods("GET")
 	r.HandleFunc("/", eventHandler).Methods("POST")
 
+	log.Printf("ListenAndServe - 0.0.0.0:%v", port)
 	loggerHandler := handlers.LoggingHandler(os.Stdout, r)
 	errHTTP := http.ListenAndServe(fmt.Sprintf(":%v", port), loggerHandler)
 	if errHTTP != nil {
 		log.Fatal("ListenAndServe: ", errHTTP)
 	}
-	log.Printf("ListenAndServe - 0.0.0.0:%v", port)
 }
