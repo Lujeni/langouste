@@ -93,12 +93,14 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		scheme = "https"
 	}
 
-	env_host := os.Getenv("PORT")
+	env_host := os.Getenv("HOST")
 	googleOauthConfig.RedirectURL = fmt.Sprintf("%v://%v/callback", scheme, env_host)
 	if env_host == "" {
 		googleOauthConfig.RedirectURL = fmt.Sprintf("%v://%v/callback", scheme, r.Host)
 	}
+
 	url := googleOauthConfig.AuthCodeURL(oauthStateString)
+	fmt.Printf("oauth redirect to %s", url)
 	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
 }
 
@@ -124,7 +126,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Unable to get path to cached credential file. %v", err)
 	}
 	saveToken(cacheFile, token)
-	fmt.Fprintf(w, "Sucessfully save credential file to: %s\n", cacheFile)
+	fmt.Fprintf(w, "Sucessfully save credential file to: %s\n", token)
 }
 
 // eventHandler handle the mattermost slash command and
