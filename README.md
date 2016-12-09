@@ -20,10 +20,3 @@ Just type `/hangout` in any channel or direct message to create unique Hangout l
 
 ## Linux web server install
 [**Here**](LINUX.md)
-
-
-# Quick Start
-## Common part
-  * Download [Latest Version](https://github.com/lujeni/langouste/releases/latest)
-  * Follow the `step 1` of the [Google calendar quickstart](https://developers.google.com/google-apps/calendar/quickstart/go)
-
