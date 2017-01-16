@@ -81,7 +81,8 @@ func insertCalendarEvent(r *http.Request) (calendar.Event, error) {
 		log.Printf("Unable to create event. %v\n", err)
 		return *hangout_event, err
 	}
-	fmt.Printf("Event created: %s\n", event.HangoutLink)
+
+	fmt.Printf("Event created: %s\n", event)
 	return *event, err
 }
 
@@ -156,7 +157,11 @@ func eventHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response.Text = fmt.Sprintf("Hangout link by %v\n\n --- \n\n %v", r.FormValue("user_name"), event.HangoutLink)
+	link := event.HangoutLink
+	if link == "" {
+		link = "Hangout link is empty, check the automatic video calls in google Calendar."
+	}
+	response.Text = fmt.Sprintf("Hangout link by %v\n\n --- \n\n %v", r.FormValue("user_name"), link)
 	data, _ := json.Marshal(response)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(data)

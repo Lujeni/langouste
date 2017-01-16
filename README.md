@@ -9,9 +9,6 @@ Just type `/hangout` in any channel or direct message to create unique Hangout l
 ![langouste screen](https://github.com/Lujeni/langouste/blob/master/langouste.png)
 
 # Quick Start
-## Common part
-[**Here**](COMMON.md)
-
 ## Heroku based install
 * If you are not familiar with Go ecosystem, use this method.
 * However, `langouste` is not fully compliance (very soon).
@@ -20,3 +17,6 @@ Just type `/hangout` in any channel or direct message to create unique Hangout l
 
 ## Linux web server install
 [**Here**](LINUX.md)
+
+## Mattermost common part
+[**Here**](MATTERMOST.md)

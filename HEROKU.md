@@ -3,6 +3,7 @@ To install this project using Heroku, you will need:
 
 1. A Heroku account, available for free from [Heroku.com](http://heroku.com)
 2. A Heroku CLI, available for free from [Heroku.com](https://devcenter.heroku.com/articles/heroku-cli)
+3. [**common part**](COMMON.md) will be necessary for a step.
 
 ## Deployment to Heroku
 ```bash
@@ -13,6 +14,8 @@ To install this project using Heroku, you will need:
     $ heroku create
 
     $ git push heroku master
+
+    # go to common part, check below
 
     # set the necessary Google stuff.
     $ heroku config:set ClientSecret=GNn5lhZWj1XlAv1876xc1
@@ -27,8 +30,3 @@ To install this project using Heroku, you will need:
 ```bash
 go to http://<heroku_domain>/
 ```
-
-### Mattermost
-* Create the [Slash command](https://docs.mattermost.com/developer/slash-commands.html#set-up-a-custom-command)
-1. url: http://<heroku_domain>/
-2. request method: POST
